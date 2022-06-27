@@ -1,14 +1,14 @@
 import Vue from 'vue';
-import VueRouter, {RouteConfig} from 'vue-router';
+import VueRouter from 'vue-router';
 import Money from '@/views/Money.vue';
-import Home from '@/views/Home.vue';
 import Labels from '@/views/Labels.vue';
-import statistics from '@/views/Statistics.vue';
+import Statistics from '@/views/Statistics.vue';
+import NotFound from '@/views/NotFound.vue';
 
 
 Vue.use(VueRouter);
 
-const routes: Array<RouteConfig> = [
+const routes= [
   {
     path:'/',
     redirect:'/money'
@@ -22,12 +22,15 @@ const routes: Array<RouteConfig> = [
     component:Labels
   },
   {
-    path:'/statistics',
-    component:statistics
-  }
+    path: '/statistics',
+    component: Statistics
+  },
+  {
+    path:'*',
+    component:NotFound
+  },
 
 ];
-
 const router = new VueRouter({
   routes
 });
