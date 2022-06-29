@@ -4,38 +4,46 @@
       <button>新增标签</button>
     </div>
     <ul class="current">
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
+      <li v-for="tag in dataSource" :key="tag"
+          :class="{selected: selectedTags.indexOf(tag)>=0}"
+          @click="toggle(tag)">{{tag}}
+      </li>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Tags.vue'
-};
+import Vue from'vue';
+import {Component, Prop} from'vue-property-decorator';
+
+@Component
+export default class Tags extends Vue{
+  @Prop() readonly dataSource: string[] | undefined; //readonly 只读的
+  selectedTags:string[] = [];
+  toggle(tag:string){
+    const index= this.selectedTags.indexOf(tag)
+    if (index>=0){
+      this.selectedTags.splice(index,1)
+    }else {
+    this.selectedTags.push(tag);
+    }
+  }
+  create(){
+    const name = window.prompt('请输入新标签的名字');
+    if (name===''){
+      window.alert('新标签没有添加名字')
+    }else {
+      if (this.dataSource)
+     this.$emit('update:dataSource',[...this.dataSource, name])
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
+@use "sass:math";
 .tags {
+  background: white;
   font-size: 14px;
   padding: 16px;
   flex-grow: 1;
@@ -45,14 +53,19 @@ export default {
     display: flex;
     flex-wrap: wrap;
     > li {
-      background: #d9d9d9;
+      $bg: #D9D9D9;
+      background: $bg;
       $h: 24px;
       height: $h;
       line-height: $h;
-      border-radius: $h/2;
+      border-radius: math.div($h,2);
       padding: 0 16px;
       margin-right: 12px;
       margin-top: 4px;
+      &.selected {
+        background: darken($bg, 50%);
+        color: white;
+      }
     }
   }
   > .new {
