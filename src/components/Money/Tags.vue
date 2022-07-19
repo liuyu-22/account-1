@@ -4,9 +4,9 @@
       <button @click="createTag">新增标签</button>
     </div>
     <ul class="current">
-      <li v-for="tag in tagList" :key="tag.id"
-          :class="{selected: selectedTags.indexOf(tag)>=0}"
-          @click="toggle(tag)">{{tag.name}}
+      <li v-for="tag in tagList" :key="tag.id" :class="{ selected: selectedTags.indexOf(tag) >= 0 }"
+        @click="toggle(tag)">
+        {{ tag.name }}
       </li>
     </ul>
   </div>
@@ -15,8 +15,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
-import {mixins} from 'vue-class-component';
+import { Component, Prop } from 'vue-property-decorator';
+import { mixins } from 'vue-class-component';
 import TagHelper from '@/mixins/TagHelper';
 @Component
 export default class Tags extends mixins(TagHelper) {
@@ -47,11 +47,13 @@ export default class Tags extends mixins(TagHelper) {
   flex-grow: 1;
   display: flex;
   flex-direction: column-reverse;
-  > .current {
+
+  >.current {
     display: flex;
     flex-wrap: wrap;
-    > li {
-      $bg: #D9D9D9;
+
+    >li {
+      $bg: #14c7be;
       background: $bg;
       $h: 24px;
       height: $h;
@@ -60,18 +62,21 @@ export default class Tags extends mixins(TagHelper) {
       padding: 0 16px;
       margin-right: 12px;
       margin-top: 4px;
+
       &.selected {
         background: darken($bg, 50%);
-        color: white;
+        color: rgb(33, 133, 199);
       }
     }
   }
-  > .new {
+
+  >.new {
     padding-top: 16px;
+
     button {
       background: transparent;
       border: none;
-      color: #999;
+      color: rgb(13, 126, 170);
       border-bottom: 1px solid;
       padding: 0 4px;
     }

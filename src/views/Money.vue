@@ -1,14 +1,11 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
-    <Types :value.sync="record.type"/>
+    <NumberPad :value.sync="record.amount" @submit="saveRecord" />
+    <Tabs :data-source="recordTypeList" :value.sync="record.type" />
     <div class="notes">
-      <FormItem field-name="备注"
-                placeholder="在这里输入备注"
-                @update:value="onUpdateNotes"
-      />
+      <FormItem field-name="备注" placeholder="在这里输入备注" :value.sync="record.notes" />
     </div>
-    <Tags/>
+    <Tags @update:value="record.tags = $event" />
   </Layout>
 </template>
 
@@ -17,7 +14,7 @@ import Vue from 'vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
-import {Component} from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
 
@@ -34,7 +31,7 @@ import recordTypeList from '@/constants/recordTypeList';
 
 
 @Component({
-  components: {Tabs, Tags, FormItem, NumberPad},
+  components: { Tabs, Tags, FormItem, NumberPad },
 })
 export default class Money extends Vue {
   get recordList() {
@@ -68,6 +65,7 @@ export default class Money extends Vue {
   display: flex;
   flex-direction: column-reverse;
 }
+
 .notes {
   padding: 12px 0;
 }

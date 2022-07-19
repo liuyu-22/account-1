@@ -1,24 +1,24 @@
 <template>
-  <ul class="tabs" :class="{[classPrefix+'-tabs']: classPrefix}">
-    <li v-for="item in dataSource" :key="item.value" class="tabs-item"
-        :class="liClass(item)" @click="select(item)">{{item.text}}
+  <ul class="tabs" :class="{ [classPrefix + '-tabs']: classPrefix }">
+    <li v-for="item in dataSource" :key="item.value" class="tabs-item" :class="liClass(item)" @click="select(item)">
+      {{ item.text }}
     </li>
   </ul>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import { Component, Prop } from 'vue-property-decorator';
 type DataSourceItem = { text: string, value: string }
 @Component
 export default class Tabs extends Vue {
-  @Prop({required: true, type: Array})
+  @Prop({ required: true, type: Array })
   dataSource!: DataSourceItem[];
   @Prop(String)
   readonly value!: string;
   @Prop(String)
   classPrefix?: string;
-  @Prop({type: String, default: '64px'})
+  @Prop({ type: String, default: '64px' })
   height!: string;
   liClass(item: DataSourceItem) {
     return {
@@ -34,10 +34,11 @@ export default class Tabs extends Vue {
 
 <style lang="scss" scoped>
 .tabs {
-  background: #C4C4C4;
+  background: #0780af;
   display: flex;
   text-align: center;
   font-size: 24px;
+
   &-item {
     width: 50%;
     height: 64px;
@@ -45,6 +46,7 @@ export default class Tabs extends Vue {
     justify-content: center;
     align-items: center;
     position: relative;
+
     &.selected::after {
       content: '';
       position: absolute;
@@ -52,7 +54,7 @@ export default class Tabs extends Vue {
       left: 0;
       width: 100%;
       height: 4px;
-      background: #333;
+      background: rgb(22, 204, 218);
     }
   }
 }
