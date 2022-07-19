@@ -1,6 +1,6 @@
 <template>
   <div class="numberPad">
-    <div class="output">{{ output }}</div>
+    <div class="output">{{output}}</div>
     <div class="buttons">
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
@@ -13,7 +13,7 @@
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button @click="ok" class="ok">确定</button>
+      <button @click="ok" class="ok">OK</button>
       <button @click="inputContent" class="zero">0</button>
       <button @click="inputContent">.</button>
     </div>
@@ -23,19 +23,14 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
-
 @Component
 export default class NumberPad extends Vue {
-@Prop() readonly  value!:number;
+  @Prop() readonly value!: number;
   output = this.value.toString();
-
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   inputContent(event: MouseEvent) {
     const button = (event.target as HTMLButtonElement);
-    const input = button.textContent as string; //直接写感叹号也一样 意思为排除null和undefined
-    if (this.output.length === 16) {
-      return;
-    }
+    const input = button.textContent!;
+    if (this.output.length === 16) { return; }
     if (this.output === '0') {
       if ('0123456789'.indexOf(input) >= 0) {
         this.output = input;
@@ -44,12 +39,9 @@ export default class NumberPad extends Vue {
       }
       return;
     }
-    if (this.output.indexOf('.') >= 0 && input === '.') {
-      return;
-    }
+    if (this.output.indexOf('.') >= 0 && input === '.') {return;}
     this.output += input;
   }
-
   remove() {
     if (this.output.length === 1) {
       this.output = '0';
@@ -57,17 +49,15 @@ export default class NumberPad extends Vue {
       this.output = this.output.slice(0, -1);
     }
   }
-
   clear() {
-  this.output = '0';
+    this.output = '0';
   }
-  ok(){
-  this.$emit('update:value',this.output)
-    this.$emit('submit',this.output)
-    this.output='0'
+  ok() {
+    this.$emit('update:value', this.output);
+    this.$emit('submit', this.output);
+    this.output = '0';
   }
 }
-
 </script>
 
 <style lang="scss" scoped>

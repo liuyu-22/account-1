@@ -3,11 +3,7 @@ type RecordItem = {
   notes: string
   type: string
   amount: number // 数据类型 object | string
-  createdAt?: Date  // 还可以写:类 / 构造函数
-}
-
-interface Window{
-  tagList:Tag[]
+  createdAt?: Date  // 类 / 构造函数
 }
 
 type Tag = {
@@ -23,8 +19,6 @@ type TagListModel = {
   save: () => void
 }
 
-interface Window{
-  tagList: Tag[];
-  createTag:(name:string)=> void
+interface Window {
 
 }
